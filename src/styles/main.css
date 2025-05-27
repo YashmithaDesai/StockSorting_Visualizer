@@ -1,0 +1,524 @@
+body {
+  font-family: 'Calibri', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
+
+.visualization-container {
+  margin: 20px 0;
+  min-height: 400px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: white;
+}
+
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stock-bar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: white;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.stock-label {
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+button {
+  padding: 8px 16px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+select, input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+/* Metrics Styles */
+.metrics {
+    margin-top: 30px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.metric-card {
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.metric-card h4 {
+    margin: 0 0 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.metric-card p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.algorithm-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+/* Chart Styles */
+.line-chart, .scatter-plot {
+    background: white;
+    margin: 0 auto;
+    display: block;
+}
+
+.scatter-plot {
+    border: 1px solid #eee;
+}
+
+/* Control Styles */
+.algorithm-selector,
+.sort-key-selector,
+.visualization-switcher,
+.speed-control {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+/* Add to your main.css */
+.control-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button.start {
+  background: #4CAF50;
+}
+
+button.pause {
+  background: #FFC107;
+  color: #000;
+}
+
+button.resume {
+  background: #2196F3;
+}
+
+button.reset {
+  background: #f44336;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* Performance Metrics Styles */
+.performance-metrics {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.metric-card {
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+}
+
+.metric-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-card p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.sort-key {
+  text-transform: capitalize;
+}
+
+.complexity-badge {
+  background: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.complexity-details {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.complexity-details span {
+  display: block;
+  margin: 0.2rem 0;
+}
+
+.metric-description {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #495057;
+  line-height: 1.4;
+}
+
+.metric-subtext {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+/* Stock Info Panel Styles */
+.stock-info-panel {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.stock-header h4 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.price.positive {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.price.negative {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.stock-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  padding: 0.5rem;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-value.positive {
+  color: #28a745;
+}
+
+.detail-value.negative {
+  color: #dc3545;
+}
+
+.no-selection, .loading {
+  padding: 2rem;
+  text-align: center;
+  color: #6c757d;
+}
+
+/* Data Source Toggle Styles */
+.data-source-toggle {
+  margin-bottom: 1rem;
+}
+
+.toggle-container {
+  display: flex;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-option.active {
+  background: #007bff;
+  color: white;
+}
+
+.toggle-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.toggle-option:not(.active):not(:disabled):hover {
+  background: #e9ecef;
+}
+
+.data-source-status {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.live-status {
+  color: #28a745;
+}
+
+.mock-status {
+  color: #6c757d;
+}
+
+.stock-visualization {
+  display: flex;
+  height: 400px;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.stock-item {
+  flex: 1;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 4px 4px 0 0;
+}
+
+.stock-item:hover {
+  opacity: 0.8;
+  transform: translateY(-5px);
+}
+
+.stock-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  padding: 10px;
+}
+.toggle-option.active {
+  background: #4CAF50;
+  color: white;
+}
+
+.toggle-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.live-status {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.mock-status {
+  color: #9E9E9E;
+}
+/* Stock Info Panel Styles */
+.stock-info-panel {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.stock-header h4 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.price {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.price.positive {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.price.negative {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.stock-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.detail-item {
+  padding: 10px;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-value.positive {
+  color: #28a745;
+}
+
+.detail-value.negative {
+  color: #dc3545;
+}
+
+.no-selection {
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.stock-bar {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.stock-bar:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.line-chart circle,
+.scatter-plot circle {
+  cursor: pointer;
+  transition: r 0.2s;
+}
+.line-chart circle:hover,
+.scatter-plot circle:hover {
+  r: 12; /* Slightly enlarge on hover */
+}
