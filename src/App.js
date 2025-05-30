@@ -8,6 +8,9 @@ import DataSourceToggle from './components/Controls/DataSourceToggle';
 import StockInfoPanel from './components/Metrics/StockInfoPanel';
 import { mockStocks } from './api/mockData';
 import StockVisualization from './components/Visualizations/StockVisualization';
+import AlgorithmExplanation from './components/AlgorithmInfo/AlgorithmExplanation';
+import AlgorithmRace from './components/AlgorithmRace/AlgorithmRace';
+import GuessAlgorithm from './components/GuessAlgorithm/GuessAlgorithm';
 
 function App() {
   const [stocks, setStocks] = useState([]);
@@ -19,6 +22,7 @@ function App() {
   const [sortKey, setSortKey] = useState('price');
   const [speed, setSpeed] = useState(500);
   const [visualizationType, setVisualizationType] = useState('bar');
+  const [viewMode, setViewMode] = useState('single'); // 'single', 'race', or 'guess'
   const [metrics, setMetrics] = useState({
     comparisons: 0,
     swaps: 0,
@@ -36,8 +40,8 @@ function App() {
         setSelectedStock(null);
       } catch (error) {
         console.error("Error loading data:", error);
-        setStocks(mockStocks); // Fallback to mock data
-        if (useLiveData) setUseLiveData(false); // Revert to mock if live fails
+        setStocks(mockStocks);
+        if (useLiveData) setUseLiveData(false);
       }
       setIsLoading(false);
     };
@@ -48,22 +52,44 @@ function App() {
   const handleStockSelect = (stock) => {
     setSelectedStock(stock);
   };
+
   const handleDataChange = async (useLive) => {
-  setIsLoading(true);
-  try {
-    const data = useLive ? await fetchStockData() : mockStocks;
-    setStocks(data);
-  } catch (error) {
-    console.error("Data load error:", error);
-    setStocks(mockStocks); // Fallback to mock data
-  }
-  setIsLoading(false);
-};
+    setIsLoading(true);
+    try {
+      const data = useLive ? await fetchStockData() : mockStocks;
+      setStocks(data);
+    } catch (error) {
+      console.error("Data load error:", error);
+      setStocks(mockStocks);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="app">
       <h1>Stock Sorting Visualizer</h1>
       
+      <div className="view-mode-toggle">
+        <button 
+          className={`mode-button ${viewMode === 'single' ? 'active' : ''}`}
+          onClick={() => setViewMode('single')}
+        >
+          Single Algorithm
+        </button>
+        <button 
+          className={`mode-button ${viewMode === 'race' ? 'active' : ''}`}
+          onClick={() => setViewMode('race')}
+        >
+          Algorithm Race
+        </button>
+        <button 
+          className={`mode-button ${viewMode === 'guess' ? 'active' : ''}`}
+          onClick={() => setViewMode('guess')}
+        >
+          Guess Algorithm
+        </button>
+      </div>
+
       <DataSourceToggle
         useLiveData={useLiveData}
         setUseLiveData={setUseLiveData}
@@ -71,33 +97,39 @@ function App() {
         onDataChange={handleDataChange}
       />
       
-      <Controls
-        activeAlgorithm={activeAlgorithm}
-        setActiveAlgorithm={setActiveAlgorithm}
-        sortKey={sortKey}
-        setSortKey={setSortKey}
-        speed={speed}
-        setSpeed={setSpeed}
-        visualizationType={visualizationType}
-        setVisualizationType={setVisualizationType}
-        isSorting={isSorting}
-        stocks={stocks}
-        setStocks={setStocks}
-        setIsSorting={setIsSorting}
-        setMetrics={setMetrics}
-        metrics={metrics}
-      />
-      
       {isLoading ? (
         <div className="loading">Loading data...</div>
-      ) : (
+      ) : viewMode === 'single' ? (
         <>
-          <Visualization
-            stocks={stocks}
-            visualizationType={visualizationType}
+          <Controls
+            activeAlgorithm={activeAlgorithm}
+            setActiveAlgorithm={setActiveAlgorithm}
             sortKey={sortKey}
-            onStockSelect={setSelectedStock}  
+            setSortKey={setSortKey}
+            speed={speed}
+            setSpeed={setSpeed}
+            visualizationType={visualizationType}
+            setVisualizationType={setVisualizationType}
+            isSorting={isSorting}
+            stocks={stocks}
+            setStocks={setStocks}
+            setIsSorting={setIsSorting}
+            setMetrics={setMetrics}
+            metrics={metrics}
           />
+
+          <div className="visualization-container">
+            <Visualization
+              stocks={stocks}
+              visualizationType={visualizationType}
+              sortKey={sortKey}
+              onStockSelect={setSelectedStock}  
+            />
+            
+            <AlgorithmExplanation 
+              activeAlgorithm={activeAlgorithm}
+            />
+          </div>
           
           <PerformanceMetrics 
             metrics={metrics}
@@ -111,6 +143,26 @@ function App() {
             stocks={stocks} 
           />
         </>
+      ) : viewMode === 'race' ? (
+        <AlgorithmRace
+          stocks={stocks}
+          onStockSelect={setSelectedStock}
+          sortKey={sortKey}
+          visualizationType={visualizationType}
+          speed={speed}
+          setStocks={setStocks}
+          setIsSorting={setIsSorting}
+        />
+      ) : (
+        <GuessAlgorithm
+          stocks={stocks}
+          onStockSelect={setSelectedStock}
+          sortKey={sortKey}
+          visualizationType={visualizationType}
+          speed={speed}
+          setStocks={setStocks}
+          setIsSorting={setIsSorting}
+        />
       )}
     </div>
   );

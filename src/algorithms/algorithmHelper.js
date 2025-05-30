@@ -1,11 +1,13 @@
 import { bubbleSort } from './bubbleSort';
 import { mergeSort } from './mergeSort';
 import { quickSort } from './quickSort';
+import { heapSort } from './heapSort';
 
 export const sortingAlgorithms = {
   bubble: bubbleSort,
   merge: mergeSort,
-  quick: quickSort
+  quick: quickSort,
+  heap: heapSort
 };
 
 export const algorithmDescriptions = {
@@ -23,5 +25,10 @@ export const algorithmDescriptions = {
     name: "Quick Sort",
     complexity: "O(n log n) average, O(n²) worst",
     description: "Picks an element as pivot and partitions the array around the pivot, placing smaller elements before and larger after."
+  },
+  heap: {
+    name: "Heap Sort",
+    complexity: "O(n log n)",
+    description: "Builds a max heap from the data and repeatedly extracts the maximum element, maintaining the heap property throughout."
   }
 };
