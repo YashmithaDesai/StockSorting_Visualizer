@@ -11,6 +11,7 @@ import StockVisualization from './components/Visualizations/StockVisualization';
 import AlgorithmExplanation from './components/AlgorithmInfo/AlgorithmExplanation';
 import AlgorithmRace from './components/AlgorithmRace/AlgorithmRace';
 import GuessAlgorithm from './components/GuessAlgorithm/GuessAlgorithm';
+import CompanyCountSelector from './components/Controls/CompanyCountSelector';
 
 function App() {
   const [stocks, setStocks] = useState([]);
@@ -23,6 +24,7 @@ function App() {
   const [speed, setSpeed] = useState(500);
   const [visualizationType, setVisualizationType] = useState('bar');
   const [viewMode, setViewMode] = useState('single'); // 'single', 'race', or 'guess'
+  const [companyCount, setCompanyCount] = useState(15);
   const [metrics, setMetrics] = useState({
     comparisons: 0,
     swaps: 0,
@@ -30,24 +32,29 @@ function App() {
     timeTaken: 0
   });
 
+  // Function to limit stocks array based on company count
+  const limitStocks = (stocksData) => {
+    return stocksData.slice(0, companyCount);
+  };
+
   // Data loading effect
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
       try {
         const data = useLiveData ? await fetchStockData() : mockStocks;
-        setStocks(data);
+        setStocks(limitStocks(data));
         setSelectedStock(null);
       } catch (error) {
         console.error("Error loading data:", error);
-        setStocks(mockStocks);
+        setStocks(limitStocks(mockStocks));
         if (useLiveData) setUseLiveData(false);
       }
       setIsLoading(false);
     };
     
     loadData();
-  }, [useLiveData]);
+  }, [useLiveData, companyCount]);
 
   const handleStockSelect = (stock) => {
     setSelectedStock(stock);
@@ -57,10 +64,10 @@ function App() {
     setIsLoading(true);
     try {
       const data = useLive ? await fetchStockData() : mockStocks;
-      setStocks(data);
+      setStocks(limitStocks(data));
     } catch (error) {
       console.error("Data load error:", error);
-      setStocks(mockStocks);
+      setStocks(limitStocks(mockStocks));
     }
     setIsLoading(false);
   };
@@ -90,12 +97,19 @@ function App() {
         </button>
       </div>
 
-      <DataSourceToggle
-        useLiveData={useLiveData}
-        setUseLiveData={setUseLiveData}
-        isSorting={isSorting}
-        onDataChange={handleDataChange}
-      />
+      <div className="data-controls">
+        <DataSourceToggle
+          useLiveData={useLiveData}
+          setUseLiveData={setUseLiveData}
+          isSorting={isSorting}
+          onDataChange={handleDataChange}
+        />
+        <CompanyCountSelector
+          companyCount={companyCount}
+          setCompanyCount={setCompanyCount}
+          disabled={isSorting}
+        />
+      </div>
       
       {isLoading ? (
         <div className="loading">Loading data...</div>

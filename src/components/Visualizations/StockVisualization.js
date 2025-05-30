@@ -82,9 +82,11 @@ const StockVisualization = ({
             const arrayCopy = [...localStocks];
             const transformedArray = arrayCopy.map(stock => ({
               ...stock,
-              sortValue: sortKey === 'change' || sortKey === 'changePercent' 
-                ? stock[sortKey]
-                : stock.change >= 0 ? stock[sortKey] : -stock[sortKey]
+              // For price and volume, use absolute values for negative changes
+              // For change and changePercent, use actual values to maintain negative ordering
+              sortValue: sortKey === 'price' || sortKey === 'volume'
+                ? (stock.change < 0 ? -stock[sortKey] : stock[sortKey])
+                : stock[sortKey]
             }));
             
             await sortFunction(transformedArray, 'sortValue', speed, updateFn);
