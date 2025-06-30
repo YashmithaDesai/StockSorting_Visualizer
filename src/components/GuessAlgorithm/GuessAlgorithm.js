@@ -116,6 +116,7 @@ const GuessAlgorithm = ({
           algorithm={selectedAlgorithm}
           speed={speed}
           isRacing={isSorting}
+          mode="guess"
           setMetrics={setMetrics}
         />
         

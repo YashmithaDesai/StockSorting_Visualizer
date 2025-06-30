@@ -123,6 +123,7 @@ const AlgorithmRace = ({
             algorithm={selectedAlgorithms.first}
             speed={speed}
             isRacing={isRacing}
+            mode="race"
             setMetrics={(newMetrics) => setMetrics(prev => ({
               ...prev,
               first: newMetrics
@@ -147,6 +148,7 @@ const AlgorithmRace = ({
             algorithm={selectedAlgorithms.second}
             speed={speed}
             isRacing={isRacing}
+            mode="race"
             setMetrics={(newMetrics) => setMetrics(prev => ({
               ...prev,
               second: newMetrics

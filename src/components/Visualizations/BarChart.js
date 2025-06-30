@@ -28,11 +28,10 @@ const BarChart = ({ data, sortKey, onStockClick }) => {
         return (
           <div 
             key={stock.symbol}
-            className="stock-bar"
+            className={`stock-bar ${isPositive ? 'positive' : 'negative'}`}
             onClick={() => onStockClick && onStockClick(stock)}
             style={{
-              width: `${percentage}%`,
-              backgroundColor: isPositive ? '#4CAF50' : '#F44336'
+              width: `${percentage}%`
             }}
           >
             <span className="stock-label">

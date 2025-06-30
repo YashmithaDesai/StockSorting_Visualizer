@@ -137,7 +137,11 @@ function App() {
               stocks={stocks}
               visualizationType={visualizationType}
               sortKey={sortKey}
-              onStockSelect={setSelectedStock}  
+              onStockSelect={setSelectedStock}
+              algorithm={activeAlgorithm}
+              speed={speed}
+              isRacing={isSorting}
+              setMetrics={setMetrics}
             />
             
             <AlgorithmExplanation 

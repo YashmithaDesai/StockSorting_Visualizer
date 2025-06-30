@@ -1,34 +1,42 @@
-import { bubbleSort } from './bubbleSort';
-import { mergeSort } from './mergeSort';
-import { quickSort } from './quickSort';
-import { heapSort } from './heapSort';
+import bubbleSort from './bubbleSort';
+import quickSort from './quickSort';
+import mergeSort from './mergeSort';
+import heapSort from './heapSort';
 
 export const sortingAlgorithms = {
   bubble: bubbleSort,
-  merge: mergeSort,
   quick: quickSort,
+  merge: mergeSort,
   heap: heapSort
 };
 
 export const algorithmDescriptions = {
   bubble: {
-    name: "Bubble Sort",
-    complexity: "O(n²)",
-    description: "Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order."
-  },
-  merge: {
-    name: "Merge Sort",
-    complexity: "O(n log n)",
-    description: "Divides the unsorted list into n sublists, each containing one element, then repeatedly merges sublists to produce new sorted sublists."
+    name: 'Bubble Sort',
+    description: 'A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
+    complexity: 'O(n²)',
+    bestCase: 'O(n)',
+    worstCase: 'O(n²)'
   },
   quick: {
-    name: "Quick Sort",
-    complexity: "O(n log n) average, O(n²) worst",
-    description: "Picks an element as pivot and partitions the array around the pivot, placing smaller elements before and larger after."
+    name: 'Quick Sort',
+    description: 'A divide-and-conquer algorithm that works by selecting a pivot element and partitioning the array around it.',
+    complexity: 'O(n log n)',
+    bestCase: 'O(n log n)',
+    worstCase: 'O(n²)'
+  },
+  merge: {
+    name: 'Merge Sort',
+    description: 'A divide-and-conquer algorithm that divides the array into smaller subarrays, sorts them, and then merges them back together.',
+    complexity: 'O(n log n)',
+    bestCase: 'O(n log n)',
+    worstCase: 'O(n log n)'
   },
   heap: {
-    name: "Heap Sort",
-    complexity: "O(n log n)",
-    description: "Builds a max heap from the data and repeatedly extracts the maximum element, maintaining the heap property throughout."
+    name: 'Heap Sort',
+    description: 'A comparison-based sorting algorithm that uses a binary heap data structure to build a max-heap and then repeatedly extracts the maximum element.',
+    complexity: 'O(n log n)',
+    bestCase: 'O(n log n)',
+    worstCase: 'O(n log n)'
   }
 };
